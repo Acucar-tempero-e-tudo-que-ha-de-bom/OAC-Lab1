@@ -67,7 +67,8 @@ LOOP_CONT:	blez a0,END		# EOF
 		li a0,20		# 32ms per frame
 		ecall
 	
-		addi s4,s4,18560	# frame number += 18560
+		li t0,18560
+		add s4,s4,t0		# frame number += 18560
 		
 		j LOOP			# repeat loop
 
