@@ -11,12 +11,17 @@ async function parse (filepath) {
       lastNote = buf.readInt8(i+1)
       console.log('read', lastNote.toString(16))
       i += 1
+    } else if (first === 0x91 || first === 0x92) {
+      i += 1
     } else if (first === 0x80) {
       lastNote = 0
+    } else if (first === 0x81 || first === 0x82) {
+      continue
     } else if (first === 0xF0) {
       console.log('END')
       break
     } else {
+      console.log(first.toString(16))
       const read = buf.readUInt16BE(i)
       console.log('wait', read)
       notes.push(lastNote, read)

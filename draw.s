@@ -39,6 +39,15 @@ LOOP:		la a0,VOCALS_STATUS
 		li a2,118
 		li a3,60
 		call PLAY
+		
+		la a0,BG_PNO_STATUS
+		# instrumentos q talvez soem legais?
+		# 6, 29, 40-43, 81, 84, 87, 104
+		# nao encontrei um instrumento legal pra essa parte
+		# (é o "piano" de fundo quando ela canta sem instrumental)
+		li a2,42
+		li a3,60
+		call PLAY
 
 		csrr t0,3073		# t0 = current time
 		sub t0,t0,s7		# t0 = current time - last frame time
