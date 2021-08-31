@@ -34,26 +34,20 @@ LOOP:		la a0,VOCALS_END
 		la a0,SYNTH_END
 		la a1,SYNTH_CURR
 		li a2,81
-		li a3,90
-		call PLAY
-		
-		la a0,SYNTH_UP_END
-		la a1,SYNTH_UP_CURR
-		li a2,81
-		li a3,90
+		li a3,70
 		call PLAY
 		
 		la a0,DRUMS_END
 		la a1,DRUMS_CURR
 		li a2,118
-		li a3,90
+		li a3,60
 		call PLAY
 
 		csrr t0,3073		# t0 = current time
 		sub t0,t0,s7		# t0 = current time - last frame time
 		li t1,40		# 40ms entre cada frame (25fps)
 		bltu t0,t1,LOOP		# enquanto n tiver passado 40ms, repete
-		
+
 		li a7,63		# read
 		mv a0,s0		# video file descriptor
 		li a1,0xFF000000	# frame 0 address
