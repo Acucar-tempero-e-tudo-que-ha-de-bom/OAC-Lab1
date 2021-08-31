@@ -26,7 +26,8 @@ PT:		.string "pt.bin"
 
 		# Configura os valores das proximas notas	
 		call SETUP_MUSIC
-
+		
+		# Toca as notas
 LOOP:		la a0,VOCALS_STATUS
 		li a2,68
 		li a3,100
@@ -47,6 +48,8 @@ LOOP:		la a0,VOCALS_STATUS
 		# 6, 29, 40-43, 81, 84, 87, 104
 		# nao encontrei um instrumento legal pra essa parte
 		# (é o "piano" de fundo quando ela canta sem instrumental)
+		
+		# victor: eu acho que os bons são: 40, 41, 84 e 87
 		li a2,42
 		li a3,60
 		call PLAY
@@ -77,7 +80,7 @@ LOOP:		la a0,VOCALS_STATUS
 		li a7,63		# read
 		mv a0,s1		# jap subtitles file descriptor
 		li a1,0xFF00E380	# offset de 182 linhas pra baixo
-		li a2,18560		# imprimir sï¿½ 58 linhas (58 * 320)
+		li a2,18560		# imprimir so 58 linhas (58 * 320)
 		ecall
 		
 		j LOOP_CONT
@@ -90,7 +93,7 @@ NOJAP:		li t0,2
 		mv a1,s4
 		li a2,0
 		ecall
-		
+
 		li a7,63		# read
 		mv a0,s2		# pt subtitles file descriptor
 		li a1,0xFF00E380	# offset de 182 linhas pra baixo
@@ -98,7 +101,7 @@ NOJAP:		li t0,2
 		ecall
 
 LOOP_CONT:	blez a0,END		# EOF
-	
+
 		li t0,18560
 		add s4,s4,t0		# frame number += 18560
 		
@@ -132,7 +135,7 @@ SUB_INPUT:	li t1,0xFF200000	# endereço onde diz se tem input do teclado
  		beq t0,t1,SUB_JAP
  		li t1,'p'
  		beq t0,t1,SUB_PT
- 
+
 SUB_RETURN:	ret
 
 SUB_REM:	mv s3,zero

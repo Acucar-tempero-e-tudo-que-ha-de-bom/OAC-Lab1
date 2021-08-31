@@ -44,7 +44,7 @@ PLAY:		lw t0,0(a0)
 		beqz t0,PLAY_NOTE
 		
 		csrr t1,3073		# current time
-		bltu t1,t0,PLAY_RET	# if (now < next note) do nothing
+		bltu t1,t0,PLAY_RET	# if (now < next note) do nothing ELSE play note
 		
 PLAY_NOTE:	lw t0,4(a0)		# t0 = current note address
 		lw t1,0(t0)		# nota
@@ -64,7 +64,7 @@ PLAY_NOTE:	lw t0,4(a0)		# t0 = current note address
 LAST_PLAYED:	beqz t2,PLAY_RET	# nota == 0 e duracao == 0, acabou
 
 		csrr t3,3073		# current time
-		add t3,t3,t2		# now + note duration = next note time
+		add t3,t3,t2		# current time + note duration = next note time
 		sw t3,0(a0)		# save next note time
 		
 		addi t0,t0,8		# incrementa endereço da proxima nota
