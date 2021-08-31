@@ -28,7 +28,7 @@ PT:		.string "pt.bin"
 LOOP:		la a0,VOCALS_END
 		la a1,VOCALS_CURR
 		li a2,68
-		li a3,127
+		li a3,100
 		call PLAY
 		
 		la a0,SYNTH_END
