@@ -5,6 +5,7 @@ JAP:		.string "jap.bin"
 PT:		.string "pt.bin"
 
 .text
+		# Abre os arquivos .bin
 
 		li a7, 1024		# open
 		la a0, VIDEO		# open VIDEO
@@ -22,7 +23,8 @@ PT:		.string "pt.bin"
 
 		li s3,1			# s3 = subtitle mode (0 = sem, 1 = jap, 2 = pt)
 		li s4,0			# s4 = sub frame number
-		
+
+		# Configura os valores das proximas notas	
 		call SETUP_MUSIC
 
 LOOP:		la a0,VOCALS_STATUS
