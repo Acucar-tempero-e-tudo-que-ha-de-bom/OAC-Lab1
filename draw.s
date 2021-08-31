@@ -5,6 +5,7 @@ JAP:		.string "jap.bin"
 PT:		.string "pt.bin"
 
 .text
+
 		li a7, 1024		# open
 		la a0, VIDEO		# open VIDEO
 		li a1, 0
@@ -21,8 +22,34 @@ PT:		.string "pt.bin"
 
 		li s3,1			# s3 = subtitle mode (0 = sem, 1 = jap, 2 = pt)
 		li s4,0			# s4 = sub frame number
+		
+		call SETUP_MUSIC
 
-LOOP:		li a7,63		# read
+LOOP:		la a0,VOCALS_END
+		la a1,VOCALS_CURR
+		li a2,68
+		li a3,127
+		call PLAY
+		
+		la a0,SYNTH_END
+		la a1,SYNTH_CURR
+		li a2,81
+		li a3,90
+		call PLAY
+		
+		la a0,DRUMS_END
+		la a1,DRUMS_CURR
+		# 115, 117, 118
+		li a2,118
+		li a3,90
+		call PLAY
+
+		csrr t0,3073		# t0 = current time
+		sub t0,t0,s7		# t0 = current time - last frame time
+		li t1,40		# 40ms entre cada frame (25fps)
+		bltu t0,t1,LOOP		# enquanto n tiver passado 40ms, repete
+		
+		li a7,63		# read
 		mv a0,s0		# video file descriptor
 		li a1,0xFF000000	# frame 0 address
 		li a2,76800		# 320 * 240
@@ -46,7 +73,7 @@ LOOP:		li a7,63		# read
 		li a2,18560		# imprimir s� 58 linhas (58 * 320)
 		ecall
 		
-		j LOOP
+		j LOOP_CONT
 
 NOJAP:		li t0,2
 		bne s3,t0,LOOP_CONT	# if s3 != 2 continue ELSE print pt subtitles
@@ -64,13 +91,11 @@ NOJAP:		li t0,2
 		ecall
 
 LOOP_CONT:	blez a0,END		# EOF
-
-		li a7,32		# sleep
-		li a0,20		# 32ms per frame
-		ecall
 	
 		li t0,18560
 		add s4,s4,t0		# frame number += 18560
+		
+		csrr s7,3073		# salva o time atual em s7
 		
 		j LOOP			# repeat loop
 
@@ -112,3 +137,4 @@ SUB_JAP:	li s3,1
 SUB_PT:		li s3,2
 		ret
 
+.include "midi.s"

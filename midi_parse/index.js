@@ -1,7 +1,7 @@
 const { readFile } = require('fs/promises')
 
 async function parse () {
-  const buf = await readFile('bad.bin')
+  const buf = await readFile('drums.bin')
   
   const buf2 = Buffer.from([
     0x6C, 0xB2, // wait 0x6CB2 (27826ms)
