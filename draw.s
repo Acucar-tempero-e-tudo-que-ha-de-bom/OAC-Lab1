@@ -25,20 +25,17 @@ PT:		.string "pt.bin"
 		
 		call SETUP_MUSIC
 
-LOOP:		la a0,VOCALS_END
-		la a1,VOCALS_CURR
+LOOP:		la a0,VOCALS_STATUS
 		li a2,68
 		li a3,100
 		call PLAY
 		
-		la a0,SYNTH_END
-		la a1,SYNTH_CURR
+		la a0,SYNTH_STATUS
 		li a2,81
 		li a3,70
 		call PLAY
 		
-		la a0,DRUMS_END
-		la a1,DRUMS_CURR
+		la a0,DRUMS_STATUS
 		li a2,118
 		li a3,60
 		call PLAY
