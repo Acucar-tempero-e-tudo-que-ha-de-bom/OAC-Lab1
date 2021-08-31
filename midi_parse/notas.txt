@@ -1,3 +1,17 @@
+0 = null
 517 = drum kit
-1 = pratos
-542 = voz
+1 = initial pratos
+944 = synth frenetico
+75 = ?
+48 = initial stair
+542 = voice
+156 = bg piano
+848 = synth frenetico (+1 octave)
+110 = end voice
+59 = end long notes
+46 = end quick notes
+848 = 
+848 =
+0 =
+
+

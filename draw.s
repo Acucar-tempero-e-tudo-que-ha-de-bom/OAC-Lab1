@@ -37,9 +37,14 @@ LOOP:		la a0,VOCALS_END
 		li a3,90
 		call PLAY
 		
+		la a0,SYNTH_UP_END
+		la a1,SYNTH_UP_CURR
+		li a2,81
+		li a3,90
+		call PLAY
+		
 		la a0,DRUMS_END
 		la a1,DRUMS_CURR
-		# 115, 117, 118
 		li a2,118
 		li a3,90
 		call PLAY

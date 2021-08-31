@@ -1,15 +1,7 @@
 const { readFile } = require('fs/promises')
 
-async function parse () {
-  const buf = await readFile('drums.bin')
-  
-  const buf2 = Buffer.from([
-    0x6C, 0xB2, // wait 0x6CB2 (27826ms)
-    0x90, 0x4B, // play 0x4B (75) note
-    0x00, 0xD9, // wait 0xD9
-    0x90, 0x4D, // play 9x4D
-    0x00, 0xD9  // wait 0xD9
-  ])
+async function parse (filepath) {
+  const buf = await readFile(filepath)
   
   const notes = []
   let lastNote = 0
@@ -37,4 +29,4 @@ async function parse () {
 
 }
 
-parse().catch(console.log)
+parse(process.argv[process.argv.length - 1]).catch(console.log)
