@@ -4,6 +4,14 @@ VIDEO:		.string "video.bin"
 JAP:		.string "jap.bin"
 PT:		.string "pt.bin"
 
+#########################################################
+#	s0 = video file descriptor			#
+#	s1 = jap file descriptor			#
+#	s2 = pt file descriptor				#
+#	s3 = subtitle mode (0 = sem, 1 = jap, 2 = pt)	#
+#	s4 = subtitle frame accumulator			#
+#########################################################
+
 .text
 		# Abre os arquivos .bin
 
@@ -102,7 +110,7 @@ NOJAP:		li t0,2
 
 LOOP_CONT:	blez a0,END		# EOF
 
-		li t0,18560
+		li t0,18560		# 58 * 320 (tamanho do frame das legendas)
 		add s4,s4,t0		# frame number += 18560
 		
 		csrr s7,3073		# salva o time atual em s7
